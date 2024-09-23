@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -7,14 +8,9 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-//coffeeAdmin
-//RPTc9kf6T1fANWnl
-
-
-
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://coffeeAdmin:RPTc9kf6T1fANWnl@practiceprojects.unbpd.mongodb.net/?retryWrites=true&w=majority&appName=PracticeProjects";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.SECRET_KEY}@practiceprojects.unbpd.mongodb.net/?retryWrites=true&w=majority&appName=PracticeProjects`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -31,7 +27,7 @@ async function run() {
         await client.connect();
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
-        console.log("The problem was in Node Version. You successfully connected to MongoDB! Now it works good!");
+        console.log("Coffee server is successfully connected to MongoDB! Now it works good!");
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
@@ -43,7 +39,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send(('Crud Server is running'));
+    res.send(('Coffee Server is running'));
 
 })
 
@@ -51,3 +47,4 @@ app.listen(port, () => {
     console.log(`Crud server is running on ${port}`);
 
 })
+
